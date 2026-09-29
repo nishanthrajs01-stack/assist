@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfraGraph — Attack Surface Graph & Orphan Asset Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Cytoscape.js & layout plugins -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.28.1/cytoscape.min.js"></script>
+  <script src="https://unpkg.com/layout-base/layout-base.js"></script>
+  <script src="https://unpkg.com/cose-base/cose-base.js"></script>
+  <script src="https://unpkg.com/cytoscape-cose-bilkent/cytoscape-cose-bilkent.js"></script>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-group">
+        <div class="logo-icon">🌐</div>
+        <div>
+          <h1>INFRAGRAPH <span class="tag">v1.0</span></h1>
+          <p class="subtitle">Multi-Source Attack Surface Graph & Takeover Intelligence</p>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Bar -->
+      <div class="metrics-bar" id="metricsBar">
+        <div class="metric-card">
+          <span class="metric-val" id="statNodes">0</span>
+          <span class="metric-lbl">Total Nodes</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-val" id="statSubdomains">0</span>
+          <span class="metric-lbl">Subdomains</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-val" id="statIPs">0</span>
+          <span class="metric-lbl">IP Addresses</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-val" id="statASNs">0</span>
+          <span class="metric-lbl">ASNs</span>
+        </div>
+        <div class="metric-card danger">
+          <span class="metric-val text-red" id="statTakeovers">0</span>
+          <span class="metric-lbl text-red">🚨 Takeovers</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <div class="workspace">
+      <!-- Toolbar & Controls -->
+      <div class="toolbar">
+        <div class="scan-form">
+          <input type="text" id="targetInput" placeholder="Enter target domain (e.g. target.com)" value="security-bounty-target.com" />
+          <button id="btnScan" class="btn btn-primary">⚡ Scan Target</button>
+          <button id="btnSample" class="btn btn-secondary">📂 Load Demo</button>
+        </div>
+
+        <div class="tool-controls">
+          <div class="control-item">
+            <label>Layout:</label>
+            <select id="layoutSelect">
+              <option value="cose">CoSE (Force Directed)</option>
+              <option value="concentric">Concentric (Tiered)</option>
+              <option value="breadthfirst">Breadthfirst (Hierarchy)</option>
+              <option value="circle">Circle</option>
+            </select>
+          </div>
+
+          <div class="control-item">
+            <label>Filter Type:</label>
+            <select id="filterType">
+              <option value="ALL">All Nodes</option>
+              <option value="SUBDOMAIN">Subdomains</option>
+              <option value="IP">IPs</option>
+              <option value="ASN">ASNs</option>
+              <option value="CLOUD_RESOURCE">Cloud Assets</option>
+              <option value="CRITICAL">🚨 High / Critical Risks</option>
+            </select>
+          </div>
+
+          <div class="control-item">
+            <button id="btnExportJson" class="btn btn-sm">💾 Export JSON</button>
+            <button id="btnExportDot" class="btn btn-sm">📊 Export DOT</button>
+            <button id="btnFit" class="btn btn-sm">🔍 Fit View</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Graph Canvas -->
+      <div class="graph-wrapper">
+        <div id="cy"></div>
+
+        <!-- Legend Overlay -->
+        <div class="legend-panel">
+          <div class="legend-title">Entity Legend</div>
+          <div class="legend-item"><span class="badge-dot domain"></span> Apex Domain</div>
+          <div class="legend-item"><span class="badge-dot subdomain"></span> Subdomain</div>
+          <div class="legend-item"><span class="badge-dot ip"></span> IP Address</div>
+          <div class="legend-item"><span class="badge-dot asn"></span> ASN Carrier</div>
+          <div class="legend-item"><span class="badge-dot cloud"></span> Cloud Service</div>
+          <div class="legend-item"><span class="badge-dot takeover"></span> 🚨 Takeover Risk</div>
+        </div>
+
+        <!-- Node / Finding Inspector Drawer -->
+        <div class="inspector-drawer" id="inspector">
+          <div class="drawer-header">
+            <h3 id="inspectorTitle">Node Inspector</h3>
+            <button id="btnCloseInspector" class="close-btn">&times;</button>
+          </div>
+          <div class="drawer-body" id="inspectorContent">
+            <p class="placeholder-text">Click any node or relationship in the graph to inspect asset details, CNAME chains, ASN carrier info, and takeover vulnerabilities.</p>
+          </div>
+        </div>
+
+        <!-- Status / Scan Progress Banner -->
+        <div id="statusBanner" class="status-banner hidden">
+          <div class="spinner"></div>
+          <span id="statusText">Scanning target domain...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

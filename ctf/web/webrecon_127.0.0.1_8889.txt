@@ -1,0 +1,17 @@
+=== Web Recon: http://127.0.0.1:8889 ===
+Host: 127.0.0.1 | Port: 8889 | Scheme: http
+
+--- nmap service scan ---
+[skipped: 'nmap' timed out after 10s]
+
+--- whatweb fingerprint ---
+[1m[34mhttp://127.0.0.1:8889[0m [200 OK] [1mCountry[0m[[0m[22mRESERVED[0m][[1m[31mZZ[0m], [1mHTTPServer[0m[[1m[36mSimpleHTTP/0.6 Python/3.13.5[0m], [1mIP[0m[[0m[22m127.0.0.1[0m], [1mPython[0m[[1m[32m3.13.5[0m]
+
+--- directory enumeration ---
+[2K/secret               (Status: 301) [Size: 0] [--> /secret/]
+
+--- nikto audit ---
+[skipped: --no-nikto flag passed]
+
+--- Flags found ---
+  none

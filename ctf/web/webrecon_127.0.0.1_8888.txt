@@ -1,0 +1,25 @@
+=== Web Recon: http://127.0.0.1:8888 ===
+Host: 127.0.0.1 | Port: 8888 | Scheme: http
+
+--- nmap service scan ---
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-09-23 17:46 UTC
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00033s latency).
+
+PORT     STATE SERVICE VERSION
+8888/tcp open  http    SimpleHTTPServer 0.6 (Python 3.13.5)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 7.29 seconds
+
+--- whatweb fingerprint ---
+[1m[34mhttp://127.0.0.1:8888[0m [200 OK] [1mCountry[0m[[0m[22mRESERVED[0m][[1m[31mZZ[0m], [1mHTTPServer[0m[[1m[36mSimpleHTTP/0.6 Python/3.13.5[0m], [1mIP[0m[[0m[22m127.0.0.1[0m], [1mPython[0m[[1m[32m3.13.5[0m]
+
+--- directory enumeration ---
+[skipped: 'ffuf' timed out after 15s]
+
+--- nikto audit ---
+[skipped: --no-nikto flag passed]
+
+--- Flags found ---
+  none

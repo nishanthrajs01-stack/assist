@@ -1,0 +1,35 @@
+=== Triage: /tmp/oddflag.txt ===
+
+--- file ---
+/tmp/oddflag.txt: ASCII text
+
+--- exiftool ---
+ExifTool Version Number         : 13.25
+File Name                       : oddflag.txt
+Directory                       : /tmp
+File Size                       : 62 bytes
+File Modification Date/Time     : 2026:09:23 18:30:56+00:00
+File Access Date/Time           : 2026:09:23 18:30:56+00:00
+File Inode Change Date/Time     : 2026:09:23 18:30:56+00:00
+File Permissions                : -rw-rw-r--
+File Type                       : TXT
+File Type Extension             : txt
+MIME Type                       : text/plain
+MIME Encoding                   : us-ascii
+Newlines                        : Unix LF
+Line Count                      : 2
+Word Count                      : 2
+
+--- binwalk ---
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+
+--- flags found ---
+secret_flag_without_braces
+
+--- entropy ---
+Global: 4.649 bits/byte (Block Max: 4.649)
+
+--- verdict ---
+* Flag-like string found directly in the file!
+* Plain text — check for encoding chains via `decode`.

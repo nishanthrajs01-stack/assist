@@ -1,0 +1,36 @@
+=== Triage: /tmp/challenge_test.bin ===
+
+--- file ---
+/tmp/challenge_test.bin: ELF 64-bit LSB no file type, no machine, invalid version (SYSV)
+
+--- exiftool ---
+ExifTool Version Number         : 13.25
+File Name                       : challenge_test.bin
+Directory                       : /tmp
+File Size                       : 154 bytes
+File Modification Date/Time     : 2026:09:23 13:30:51+00:00
+File Access Date/Time           : 2026:09:23 13:30:51+00:00
+File Inode Change Date/Time     : 2026:09:23 13:30:51+00:00
+File Permissions                : -rw-rw-r--
+File Type                       : ELF executable
+File Type Extension             : 
+MIME Type                       : application/octet-stream
+CPU Architecture                : 64 bit
+CPU Byte Order                  : Little endian
+Object File Type                : None
+CPU Type                        : None
+
+--- binwalk ---
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+
+--- flags found ---
+FLAG{triage_pipeline_success}
+
+--- entropy ---
+2.274 bits/byte
+
+--- verdict ---
+* Flag-like string found directly in the file!
+* Low entropy — mostly repetitive/plain data.
+* ELF binary — likely Reverse or Pwn category.

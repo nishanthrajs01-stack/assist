@@ -1,0 +1,17 @@
+# ReconEngine — Target Scope Configuration
+# Add your bug bounty program scopes here.
+
+programs:
+  - name: "Example Program"
+    domains:
+      - "example.com"
+      - "example.io"
+    exclude:
+      - "out-of-scope.example.com"
+    notes: "HackerOne program, all subdomains in scope"
+
+  - name: "Test Target"
+    domains:
+      - "scanme.nmap.org"
+    exclude: []
+    notes: "Safe public scanning test target"

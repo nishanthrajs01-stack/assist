@@ -1,0 +1,75 @@
+=== Forensics sweep: /tmp/test_image.png ===
+file: PNG image data, 50 x 50, 8-bit/color RGB, non-interlaced
+Detected kind: image
+
+--- zsteg ---
+chunk:0:IHDR        .. file: Adobe Photoshop Color swatch, version 0, 50 colors; 1st RGB space (0), w 0x32, x 0x802, y 0, z 0; 2nd RGB space (0), w 0, x 0, y 0, z 0
+
+b1,r,lsb,xy         .. 
+b1,r,msb,xy         .. 
+b1,g,lsb,xy         .. 
+b1,g,msb,xy         .. 
+b1,b,lsb,xy         .. 
+b1,b,msb,xy         .. 
+b1,rgb,lsb,xy       .. 
+b1,rgb,msb,xy       .. 
+b1,bgr,lsb,xy       .. 
+b1,bgr,msb,xy       .. 
+b2,r,lsb,xy         .. 
+b2,r,msb,xy         .. 
+b2,g,lsb,xy         .. 
+b2,g,msb,xy         .. 
+b2,b,lsb,xy         .. 
+b2,b,msb,xy         .. 
+b2,rgb,lsb,xy       .. 
+b2,rgb,msb,xy       .. 
+b2,bgr,lsb,xy       .. 
+b2,bgr,msb,xy       .. 
+b3,r,lsb,xy         .. 
+b3,r,msb,xy         .. 
+b3,g,lsb,xy         .. 
+b3,g,msb,xy         .. 
+b3,b,lsb,xy         .. 
+b3,b,msb,xy         .. 
+b3,rgb,lsb,xy       .. 
+b3,rgb,msb,xy       .. 
+b3,bgr,lsb,xy       .. 
+b3,bgr,msb,xy       .. 
+b4,r,lsb,xy         .. 
+b4,r,msb,xy         .. 
+b4,g,lsb,xy         .. 
+b4,g,msb,xy         .. 
+b4,b,lsb,xy         .. 
+b4,b,msb,xy         .. 
+b4,rgb,lsb,xy       .. 
+b4,rgb,msb,xy       .. 
+b4,bgr,lsb,xy       .. 
+b4,bgr,msb,xy       .. 
+[=] nothing :(
+
+--- steghide (blank passphrase attempt) ---
+steghide: the file format of the file "/tmp/test_image.png" is not supported.
+
+--- exiftool ---
+ExifTool Version Number         : 13.25
+File Name                       : test_image.png
+Directory                       : /tmp
+File Size                       : 132 bytes
+File Modification Date/Time     : 2026:09:23 13:30:17+00:00
+File Access Date/Time           : 2026:09:23 13:30:46+00:00
+File Inode Change Date/Time     : 2026:09:23 13:30:17+00:00
+File Permissions                : -rw-rw-r--
+File Type                       : PNG
+File Type Extension             : png
+MIME Type                       : image/png
+Image Width                     : 50
+Image Height                    : 50
+Bit Depth                       : 8
+Color Type                      : RGB
+Compression                     : Deflate/Inflate
+Filter                          : Adaptive
+Interlace                       : Noninterlaced
+Image Size                      : 50x50
+Megapixels                      : 0.003
+
+--- Flags found ---

@@ -1,0 +1,16 @@
+=== Forensics sweep: /home/user/Desktop/mystery.chall ===
+file: Zip archive, with extra data prepended
+Detected kind: archive
+
+--- binwalk -e (extract) ---
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+110           0x6E            Zip archive data, at least v2.0 to extract, compressed size: 16224, uncompressed size: 16224, name: keychecker
+16374         0x3FF6          Zip archive data, at least v2.0 to extract, compressed size: 618, uncompressed size: 618, name: traffic.pcap
+17148         0x42FC          End of Zip archive, footer length: 22
+
+--- foremost (carve) ---
+ERROR: /home/user/ctf/forensics/sweep_mystery/foremost_out is not empty
+ 	Please specify another directory or run with -T.
+
+--- Flags found ---

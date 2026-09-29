@@ -1,0 +1,166 @@
+=== Reverse quick-look: /bin/ls ===
+
+--- file ---
+/bin/ls: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=0243f2a3ad64d635299a574bbc8ef951ddde9b21, for GNU/Linux 3.2.0, stripped
+
+--- checksec ---
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[32mFull RELRO   [m   [32mCanary found   [m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [32mNo Symbols	[m  [32mYes[m	6		15		/bin/ls
+
+--- flags found in strings ---
+none
+
+--- radare2 fast-path ---
+[Entrypoints]
+vaddr=0x00006760 paddr=0x00006760 haddr=0x00000018 hvaddr=0x00000018 type=program
+
+1 entrypoints
+┌ 33: entry0 (int64_t arg3);
+│ `- args(rdx)
+│           0x00006760      31ed           xor ebp, ebp
+│           0x00006762      4989d1         mov r9, rdx                 ; arg3
+│           0x00006765      5e             pop rsi
+│           0x00006766      4889e2         mov rdx, rsp
+│           0x00006769      4883e4f0       and rsp, 0xfffffffffffffff0
+│           0x0000676d      50             push rax
+│           0x0000676e      54             push rsp
+│           0x0000676f      4531c0         xor r8d, r8d
+│           0x00006772      31c9           xor ecx, ecx
+│           0x00006774      488d3d85e4..   lea rdi, [main]             ; 0x4c00
+└           0x0000677b      ff1517080200   call qword [reloc.__libc_start_main] ; [0x26f98:8]=0
+0x00004030    1      6 sym.imp.__ctype_toupper_loc
+0x00004040    1      6 sym.imp.getenv
+0x00004050    1      6 sym.imp.cap_to_text
+0x00004060    1      6 sym.imp.fgetfilecon
+0x00004070    1      6 sym.imp.sigprocmask
+0x00004080    1      6 sym.imp.__snprintf_chk
+0x00004090    1      6 sym.imp.raise
+0x000040a0    1      6 sym.imp.__vfprintf_chk
+0x000040b0    1      6 sym.imp.abort
+0x000040c0    1      6 sym.imp.__errno_location
+0x000040d0    1      6 sym.imp.getfilecon_raw
+0x000040e0    1      6 sym.imp.strncmp
+0x000040f0    1      6 sym.imp.localtime_r
+0x00004100    1      6 sym.imp._exit
+0x00004110    1      6 sym.imp.strcpy
+0x00004120    1      6 sym.imp.__fpending
+0x00004130    1      6 sym.imp.flistxattr
+0x00004140    1      6 sym.imp.isatty
+0x00004150    1      6 sym.imp.sigaction
+0x00004160    1      6 sym.imp.iswcntrl
+0x00004170    1      6 sym.imp.localeconv
+0x00004180    1      6 sym.imp.faccessat
+0x00004190    1      6 sym.imp.readlink
+0x000041a0    1      6 sym.imp.fcntl
+0x000041b0    1      6 sym.imp.clock_gettime
+0x000041c0    1      6 sym.imp.setenv
+0x000041d0    1      6 sym.imp.textdomain
+0x000041e0    1      6 sym.imp.fclose
+0x000041f0    1      6 sym.imp.opendir
+0x00004200    1      6 sym.imp.getpwuid
+0x00004210    1      6 sym.imp.bindtextdomain
+0x00004220    1      6 sym.imp.dcgettext
+0x00004230    1      6 sym.imp.__ctype_get_mb_cur_max
+0x00004240    1      6 sym.imp.strlen
+0x00004250    1      6 sym.imp.__stack_chk_fail
+0x00004260    1      6 sym.imp.getopt_long
+0x00004270    1      6 sym.imp.freecon
+0x00004280    1      6 sym.imp.strchr
+0x00004290    1      6 sym.imp.getgrgid
+0x000042a0    1      6 sym.imp.snprintf
+0x000042b0    1      6 sym.imp.__overflow
+0x000042c0    1      6 sym.imp.strrchr
+0x000042d0    1      6 sym.imp.gmtime_r
+0x000042e0    1      6 sym.imp.lseek
+0x000042f0    1      6 sym.imp.__assert_fail
+0x00004300    1      6 sym.imp.fnmatch
+0x00004310    1      6 sym.imp.memset
+0x00004320    1      6 sym.imp.ioctl
+0x00004330    1      6 sym.imp.strnlen
+0x00004340    1      6 sym.imp.getcwd
+0x00004350    1      6 sym.imp.mbrtoc32
+0x00004360    1      6 sym.imp.strspn
+0x00004370    1      6 sym.imp.closedir
+0x00004380    1      6 sym.imp.memcmp
+0x00004390    1      6 sym.imp._setjmp
+0x000043a0    1      6 sym.imp.fputs_unlocked
+0x000043b0    1      6 sym.imp.rawmemchr
+0x000043c0    1      6 sym.imp.calloc
+0x000043d0    1      6 sym.imp.signal
+0x000043e0    1      6 sym.imp.dirfd
+0x000043f0    1      6 sym.imp.fputc_unlocked
+0x00004400    1      6 sym.imp.getpwnam
+0x00004410    1      6 sym.imp.__memcpy_chk
+0x00004420    1      6 sym.imp.sigemptyset
+0x00004430    1      6 sym.imp.stat
+0x00004440    1      6 sym.imp.memcpy
+0x00004450    1      6 sym.imp.lgetfilecon_raw
+0x00004460    1      6 sym.imp.getgrnam
+0x00004470    1      6 sym.imp.__isoc23_strtoumax
+0x00004480    1      6 sym.imp.tzset
+0x00004490    1      6 sym.imp.fileno
+0x000044a0    1      6 sym.imp.tcgetpgrp
+0x000044b0    1      6 sym.imp.readdir
+0x000044c0    1      6 sym.imp.strerror_r
+0x000044d0    1      6 sym.imp.wcwidth
+0x000044e0    1      6 sym.imp.fflush
+0x000044f0    1      6 sym.imp.nl_langinfo
+0x00004500    1      6 sym.imp.strcoll
+0x00004510    1      6 sym.imp.mktime
+0x00004520    1      6 sym.imp.__freading
+0x00004530    1      6 sym.imp.fgetxattr
+0x00004540    1      6 sym.imp.fwrite_unlocked
+0x00004550    1      6 sym.imp.realloc
+0x00004560    1      6 sym.imp.setlocale
+0x00004570    1      6 sym.imp.__printf_chk
+0x00004580    1      6 sym.imp.statx
+0x00004590    1      6 sym.imp.timegm
+0x000045a0    1      6 sym.imp.strftime
+0x000045b0    1      6 sym.imp.mempcpy
+0x000045c0    1      6 sym.imp.memmove
+0x000045d0    1      6 sym.imp.fseeko
+0x000045e0    1      6 sym.imp.cap_get_file
+0x000045f0    1      6 sym.imp.unsetenv
+0x00004600    1      6 sym.imp.cap_free
+0x00004610    1      6 sym.imp.__cxa_atexit
+0x00004620    1      6 sym.imp.gethostname
+0x00004630    1      6 sym.imp.sigismember
+0x00004640    1      6 sym.imp.exit
+0x00004650    1      6 sym.imp.fwrite
+0x00004660    1      6 sym.imp.__fprintf_chk
+0x00004670    1      6 sym.imp.getfilecon
+0x00004680    1      6 sym.imp.fflush_unlocked
+0x00004690    1      6 sym.imp.mbsinit
+0x000046a0    1      6 sym.imp.lgetfilecon
+0x000046b0    1      6 sym.imp.iswprint
+0x000046c0    1      6 sym.imp.fgetfilecon_raw
+0x000046d0    1      6 sym.imp.sigaddset
+0x000046e0    1      6 sym.imp.__ctype_tolower_loc
+0x000046f0    1      6 sym.imp.__ctype_b_loc
+0x00004700    1      6 sym.imp.__sprintf_chk
+0x00004710    1      6 sym.imp.free
+0x00004718    1      6 sym.imp.strcmp
+0x00004728    1      6 sym.imp.__cxa_finalize
+0x00004720    1      6 sym.imp.malloc
+0x00006760    1     33 entry0
+0x00004ad7    5    166 sym.error_at_line
+0x00004932    5    176 sym.error
+0x00004c00  327   7045 main
+0x00006840    5     60 entry.init0
+0x00006800    5     54 entry.fini0
+0x00006790    4     34 fcn.00006790
+WARN: Relocs has not been applied. Please use `-e bin.relocs.apply=true` or `-e bin.cache=true` next time
+INFO: Analyze all flags starting with sym. and entry0 (aa)
+INFO: Analyze imports (af@@@i)
+INFO: Analyze entrypoint (af@ entry0)
+INFO: Analyze symbols (af@@@s)
+INFO: Recovering variables (afva@@@F)
+INFO: Analyze all functions arguments/locals (afva@@@F)
+
+--- Ghidra decompile ---
+(skipped — pass --ghidra to run headless Ghidra)
+
+--- verdict ---
+* Stack canary present — stack buffer overflow to ret address requires leak.
+* NX enabled — shellcode on stack won't execute; look at ROP / ret2libc / GOT overwrite.
+* PIE enabled — code addresses randomized; memory address leak required.

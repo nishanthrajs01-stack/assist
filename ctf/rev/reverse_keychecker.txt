@@ -1,0 +1,153 @@
+=== Reverse quick-look: /home/user/ctf/challenge/keychecker ===
+
+--- file ---
+/home/user/ctf/challenge/keychecker: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=5ceeebcf0c648b5335aa36c61cf610bb790d9f2e, for GNU/Linux 3.2.0, not stripped
+
+--- checksec ---
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [31mNo canary found[m   [32mNX enabled [m   [31mNo PIE       [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m44 Symbols	[m  [31mNo[m	0		2		/home/user/ctf/challenge/keychecker
+
+--- flags found in strings ---
+none
+
+--- radare2 fast-path ---
+0x00401030    1      6 sym.imp.puts
+0x00401040    1      6 sym.imp.strlen
+0x00401050    1      6 sym.imp.printf
+0x00401060    1      6 sym.imp.fgets
+0x00401070    1      6 sym.imp.strcmp
+0x00401080    1      6 sym.imp.fflush
+0x00401090    1     33 entry0
+0x004010d0    4     31 sym.deregister_tm_clones
+0x00401100    4     49 sym.register_tm_clones
+0x00401140    3     32 entry.fini0
+0x00401170    1      6 entry.init0
+0x004013dc    1      9 sym._fini
+0x00401176    4     78 sym.decode_xor
+0x004010c0    1      1 sym._dl_relocate_static_pie
+0x004011c4    9    536 main
+0x00401000    3     23 sym._init
+            ; DATA XREF from entry0 @ 0x4010a4(r)
+┌ 536: int main (int argc, char **argv, char **envp);
+│ afv: vars(21:sp[0x10..0xb8])
+│           0x004011c4      55             push rbp
+│           0x004011c5      4889e5         mov rbp, rsp
+│           0x004011c8      4881ecb000..   sub rsp, 0xb0
+│           0x004011cf      48c745b000..   mov qword [var_50h], 0
+│           0x004011d7      48c745b800..   mov qword [var_48h], 0
+│           0x004011df      48c745c000..   mov qword [var_40h], 0
+│           0x004011e7      48c745c800..   mov qword [var_38h], 0
+│           0x004011ef      48c745d000..   mov qword [var_30h], 0
+│           0x004011f7      48c745d800..   mov qword [var_28h], 0
+│           0x004011ff      48c745e000..   mov qword [var_20h], 0
+│           0x00401207      48c745e800..   mov qword [var_18h], 0
+│           0x0040120f      48c7459000..   mov qword [var_70h], 0
+│           0x00401217      48c7459800..   mov qword [var_68h], 0
+│           0x0040121f      48c745a000..   mov qword [var_60h], 0
+│           0x00401227      48c745a800..   mov qword [var_58h], 0
+│           0x0040122f      48c78550ff..   mov qword [var_b0h], 0
+│           0x0040123a      48c78558ff..   mov qword [var_a8h], 0
+│           0x00401245      48c78560ff..   mov qword [var_a0h], 0
+│           0x00401250      48c78568ff..   mov qword [var_98h], 0
+│           0x0040125b      48c78570ff..   mov qword [var_90h], 0
+│           0x00401266      48c78578ff..   mov qword [var_88h], 0
+│           0x00401271      48c7458000..   mov qword [var_80h], 0
+│           0x00401279      48c7458800..   mov qword [var_78h], 0
+│           0x00401281      488d4590       lea rax, [var_70h]
+│           0x00401285      ba0d000000     mov edx, 0xd                ; 13
+│           0x0040128a      4889c6         mov rsi, rax
+│           0x0040128d      488d057c0d..   lea rax, obj.ENC_KEY        ; 0x402010 ; "\"f7\n#a 9!\n>f,"
+│           0x00401294      4889c7         mov rdi, rax
+│           0x00401297      e8dafeffff     call sym.decode_xor
+│           0x0040129c      488d8550ff..   lea rax, [var_b0h]
+│           0x004012a3      ba17000000     mov edx, 0x17               ; 23
+│           0x004012a8      4889c6         mov rsi, rax
+│           0x004012ab      488d056e0d..   lea rax, obj.ENC_MSG        ; 0x402020
+│           0x004012b2      4889c7         mov rdi, rax
+│           0x004012b5      e8bcfeffff     call sym.decode_xor
+│           0x004012ba      488d05770d..   lea rax, str._Key_Checker_  ; 0x402038 ; "=== Key Checker ==="
+│           0x004012c1      4889c7         mov rdi, rax
+│           0x004012c4      e867fdffff     call sym.imp.puts           ; int puts(const char *s)
+│           0x004012c9      488d057c0d..   lea rax, str.Enter_the_key: ; 0x40204c ; "Enter the key: "
+│           0x004012d0      4889c7         mov rdi, rax
+│           0x004012d3      b800000000     mov eax, 0
+│           0x004012d8      e873fdffff     call sym.imp.printf         ; int printf(const char *format)
+│           0x004012dd      488b055c2d..   mov rax, qword [obj.stdout] ; obj.__TMC_END__
+│                                                                      ; [0x404040:8]=0
+│           0x004012e4      4889c7         mov rdi, rax
+│           0x004012e7      e894fdffff     call sym.imp.fflush         ; int fflush(FILE *stream)
+│           0x004012ec      488b155d2d..   mov rdx, qword [obj.stdin]  ; obj.stdin_GLIBC_2.2.5
+│                                                                      ; [0x404050:8]=0
+│           0x004012f3      488d45b0       lea rax, [var_50h]
+│           0x004012f7      be40000000     mov esi, 0x40               ; elf_phdr
+│           0x004012fc      4889c7         mov rdi, rax
+│           0x004012ff      e85cfdffff     call sym.imp.fgets          ; char *fgets(char *s, int size, FILE *stream)
+│           0x00401304      4885c0         test rax, rax
+│       ┌─< 0x00401307      7519           jne 0x401322
+│       │   0x00401309      488d054c0d..   lea rax, str.Error_reading_input. ; 0x40205c ; "Error reading input."
+│       │   0x00401310      4889c7         mov rdi, rax
+│       │   0x00401313      e818fdffff     call sym.imp.puts           ; int puts(const char *s)
+│       │   0x00401318      b801000000     mov eax, 1
+│      ┌──< 0x0040131d      e9b8000000     jmp 0x4013da
+│      │└─> 0x00401322      488d45b0       lea rax, [var_50h]
+│      │    0x00401326      4889c7         mov rdi, rax
+│      │    0x00401329      e812fdffff     call sym.imp.strlen         ; size_t strlen(const char *s)
+│      │    0x0040132e      488945f8       mov qword [var_8h], rax
+│      │    0x00401332      48837df800     cmp qword [var_8h], 0
+│      │┌─< 0x00401337      7424           je 0x40135d
+│      ││   0x00401339      488b45f8       mov rax, qword [var_8h]
+│      ││   0x0040133d      4883e801       sub rax, 1
+│      ││   0x00401341      0fb64405b0     movzx eax, byte [rbp + rax - 0x50]
+│      ││   0x00401346      3c0a           cmp al, 0xa                 ; 10
+│     ┌───< 0x00401348      7513           jne 0x40135d
+│     │││   0x0040134a      48836df801     sub qword [var_8h], 1
+│     │││   0x0040134f      488d55b0       lea rdx, [var_50h]
+│     │││   0x00401353      488b45f8       mov rax, qword [var_8h]
+│     │││   0x00401357      4801d0         add rax, rdx
+│     │││   0x0040135a      c60000         mov byte [rax], 0
+│     └─└─> 0x0040135d      488d5590       lea rdx, [var_70h]
+│      │    0x00401361      488d45b0       lea rax, [var_50h]
+│      │    0x00401365      4889d6         mov rsi, rdx
+│      │    0x00401368      4889c7         mov rdi, rax
+│      │    0x0040136b      e800fdffff     call sym.imp.strcmp         ; int strcmp(const char *s1, const char *s2)
+│      │    0x00401370      85c0           test eax, eax
+│      │┌─< 0x00401372      7543           jne 0x4013b7
+│      ││   0x00401374      488d05f60c..   lea rax, str._n___Access_GRANTED_ ; 0x402071 ; "\n[+] Access GRANTED!"
+│      ││   0x0040137b      4889c7         mov rdi, rax
+│      ││   0x0040137e      e8adfcffff     call sym.imp.puts           ; int puts(const char *s)
+│      ││   0x00401383      488d8550ff..   lea rax, [var_b0h]
+│      ││   0x0040138a      4889c6         mov rsi, rax
+│      ││   0x0040138d      488d05f20c..   lea rax, str.____s_n        ; 0x402086 ; "[+] %s\n"
+│      ││   0x00401394      4889c7         mov rdi, rax
+│      ││   0x00401397      b800000000     mov eax, 0
+│      ││   0x0040139c      e8affcffff     call sym.imp.printf         ; int printf(const char *format)
+│      ││   0x004013a1      488d05e80c..   lea rax, str.___The_web_service_is_live._Use_webrecon_to_discover_the_flag_endpoint. ; 0x402090 ; "[+] The web service is live. Use webrecon to discover the flag endpoint."
+│      ││   0x004013a8      4889c7         mov rdi, rax
+│      ││   0x004013ab      e880fcffff     call sym.imp.puts           ; int puts(const char *s)
+│      ││   0x004013b0      b800000000     mov eax, 0
+│     ┌───< 0x004013b5      eb23           jmp 0x4013da
+│     ││└─> 0x004013b7      488d05220d..   lea rax, str._n____Access_DENIED._Wrong_key. ; 0x4020e0 ; "\n[-] Access DENIED. Wrong key."
+│     ││    0x004013be      4889c7         mov rdi, rax
+│     ││    0x004013c1      e86afcffff     call sym.imp.puts           ; int puts(const char *s)
+│     ││    0x004013c6      488d05330d..   lea rax, str.____Hint:_decompile_this_binary_with__reverse_keychecker__to_recover_the_key. ; 0x402100 ; "[-] Hint: decompile this binary with `reverse keychecker` to recover the key."
+│     ││    0x004013cd      4889c7         mov rdi, rax
+│     ││    0x004013d0      e85bfcffff     call sym.imp.puts           ; int puts(const char *s)
+│     ││    0x004013d5      b801000000     mov eax, 1
+│     ││    ; CODE XREFS from main @ 0x40131d(x), 0x4013b5(x)
+│     └└──> 0x004013da      c9             leave
+└           0x004013db      c3             ret
+WARN: Relocs has not been applied. Please use `-e bin.relocs.apply=true` or `-e bin.cache=true` next time
+INFO: Analyze all flags starting with sym. and entry0 (aa)
+INFO: Analyze imports (af@@@i)
+INFO: Analyze entrypoint (af@ entry0)
+INFO: Analyze symbols (af@@@s)
+INFO: Recovering variables (afva@@@F)
+INFO: Analyze all functions arguments/locals (afva@@@F)
+
+--- Ghidra decompile ---
+(skipped — pass --ghidra to run headless Ghidra)
+
+--- verdict ---
+* No stack canary — stack buffer overflow may be viable directly.
+* NX enabled — shellcode on stack won't execute; look at ROP / ret2libc / GOT overwrite.
+* No PIE — code addresses are static, fixed gadget offsets available.

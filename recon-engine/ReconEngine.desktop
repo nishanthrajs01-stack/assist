@@ -1,0 +1,28 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Bug Bounty Time Saver
+GenericName=Automated Recon Pipeline
+Comment=Automated recon pipeline — subdomain discovery, diff alerts and asset browser
+Icon=/home/user/recon-engine/recon-engine.png
+Exec=/home/user/recon-engine/scripts/launch.sh
+Terminal=false
+StartupNotify=true
+Categories=System;Security;Network;
+Keywords=recon;bugbounty;security;scanner;subdomain;
+Actions=RunScan;StopDashboard;OpenLogs;
+
+[Desktop Action RunScan]
+Name=Run Full Scan Now
+Exec=/home/user/recon-engine/scripts/action_scan.sh
+Icon=/home/user/recon-engine/recon-engine.png
+
+[Desktop Action StopDashboard]
+Name=Stop Dashboard Server
+Exec=/home/user/recon-engine/scripts/action_stop.sh
+Icon=process-stop
+
+[Desktop Action OpenLogs]
+Name=View Dashboard Logs
+Exec=/home/user/recon-engine/scripts/action_logs.sh
+Icon=utilities-log-viewer

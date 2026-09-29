@@ -1,0 +1,16 @@
+=== Web Recon: http://192.0.2.1:8080 ===
+Host: 192.0.2.1 | Port: 8080 | Scheme: http
+
+--- nmap service scan ---
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-09-23 18:21 UTC
+Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn
+Nmap done: 1 IP address (0 hosts up) scanned in 2.25 seconds
+
+--- whatweb fingerprint ---
+[skipped: 'whatweb' timed out after 5s]
+
+--- directory enumeration ---
+[skipped: 'gobuster' timed out after 5s]
+
+--- Flags found ---
+  none

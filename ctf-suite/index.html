@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTF Automation Command Center</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    .glow { animation: pulse-glow 3s infinite; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen p-6 antialiased">
+  <div class="max-w-7xl mx-auto space-y-8">
+    
+    <!-- Top Header -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-6 gap-4">
+      <div>
+        <div class="flex items-center gap-3">
+          <div class="h-3.5 w-3.5 rounded-full bg-emerald-500 glow shadow-lg shadow-emerald-500/50"></div>
+          <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white">CTF Automation Suite</h1>
+          <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">v2.0 Hardened</span>
+        </div>
+        <p class="text-slate-400 text-sm mt-1">Unified Command Center & Interactive Quick-Run Workbench</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/nishanthrajs01-stack/ctf" target="_blank" class="flex items-center gap-2 px-4 py-2 text-xs font-medium bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 rounded-lg transition">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub Repository
+        </a>
+        <button onclick="copyToClipboard('cd /home/user/Documents/ctf && ls -la')" class="px-3 py-2 text-xs font-mono bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg transition shadow-md shadow-emerald-900/30">
+          Copy CTF Path
+        </button>
+      </div>
+    </header>
+
+    <!-- Tool Selector Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      
+      <!-- Tool 1: Triage -->
+      <div onclick="selectTool('triage')" id="card-triage" class="cursor-pointer p-4 rounded-xl border border-emerald-500/30 bg-slate-900/80 hover:border-emerald-500 hover:bg-slate-900 transition relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-emerald-400">01 // TRIAGE</span>
+          <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">First-Look</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mt-2 group-hover:text-emerald-400 transition">triage.py</h3>
+        <p class="text-xs text-slate-400 mt-1">Sliding-window entropy, streaming regex & signature audit.</p>
+      </div>
+
+      <!-- Tool 2: Sweep -->
+      <div onclick="selectTool('sweep')" id="card-sweep" class="cursor-pointer p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:border-cyan-500 hover:bg-slate-900 transition relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-cyan-400">02 // FORENSICS</span>
+          <span class="text-xs px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Carve & Dump</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mt-2 group-hover:text-cyan-400 transition">sweep.py</h3>
+        <p class="text-xs text-slate-400 mt-1">Multi-stream PCAP analysis, Steghide dictionary & binwalk.</p>
+      </div>
+
+      <!-- Tool 3: Decode -->
+      <div onclick="selectTool('decode')" id="card-decode" class="cursor-pointer p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:border-purple-500 hover:bg-slate-900 transition relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-purple-400">03 // CRYPTO</span>
+          <span class="text-xs px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">Multi-Layer</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mt-2 group-hover:text-purple-400 transition">decode.py</h3>
+        <p class="text-xs text-slate-400 mt-1">Multi-byte XOR solver, Base32/64/85 & frequency scoring.</p>
+      </div>
+
+      <!-- Tool 4: Reverse -->
+      <div onclick="selectTool('reverse')" id="card-reverse" class="cursor-pointer p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:border-amber-500 hover:bg-slate-900 transition relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-amber-400">04 // REVERSE</span>
+          <span class="text-xs px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">Fast-Path</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mt-2 group-hover:text-amber-400 transition">reverse.py</h3>
+        <p class="text-xs text-slate-400 mt-1">Sub-second Radare2 analysis + Headless Ghidra decompilation.</p>
+      </div>
+
+      <!-- Tool 5: Webrecon -->
+      <div onclick="selectTool('webrecon')" id="card-webrecon" class="cursor-pointer p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:border-rose-500 hover:bg-slate-900 transition relative overflow-hidden group">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono text-rose-400">05 // WEB RECON</span>
+          <span class="text-xs px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20">Parallel 4x</span>
+        </div>
+        <h3 class="text-lg font-bold text-white mt-2 group-hover:text-rose-400 transition">webrecon.py</h3>
+        <p class="text-xs text-slate-400 mt-1">2s liveness probe, parallel Nmap, WhatWeb, Gobuster & Nikto.</p>
+      </div>
+
+    </div>
+
+    <!-- Active Tool Interactive Panel -->
+    <main class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 lg:p-8 shadow-2xl relative">
+      <div id="tool-content" class="space-y-6">
+        <!-- Injected via JavaScript -->
+      </div>
+    </main>
+
+    <!-- Challenge Quick-Run Relay Banner -->
+    <div class="p-6 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-cyan-950/40 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 text-xs font-mono bg-emerald-500/20 text-emerald-400 rounded">Relay Workflow</span>
+          <h4 class="font-bold text-white text-lg">Integrated 5-Stage Challenge Scenario</h4>
+        </div>
+        <p class="text-slate-400 text-sm">
+          Run all 5 tools sequentially against the generated local challenge artifact on your Desktop.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="copyToClipboard('/home/user/ctf/challenge/setup_challenge.py')" class="px-4 py-2 text-xs font-mono bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg border border-slate-700 transition">
+          Reset Challenge Env
+        </button>
+        <button onclick="copyToClipboard('triage /home/user/Desktop/mystery.chall && sweep /home/user/Desktop/mystery.chall')" class="px-4 py-2 text-xs font-mono bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg transition shadow-lg shadow-emerald-900/30">
+          Run Stage 1 & 2
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-500 pt-4 border-t border-slate-900 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div>Local Repository: <code class="text-slate-400">/home/user/Documents/ctf</code></div>
+      <div>Maintained by <span class="text-slate-300">nishanthrajs01-stack</span></div>
+    </footer>
+
+  </div>
+
+  <script>
+    const TOOL_DATA = {
+      triage: {
+        title: "triage.py — Universal Challenge File Triage",
+        tag: "Initial Reconnaissance",
+        tagColor: "emerald",
+        desc: "Deep inspecting engine designed for instantaneous analysis of unknown files, mystery payloads, and suspected archives.",
+        features: [
+          "1024-byte sliding-window Shannon entropy mapping to locate localized encrypted or packed payload blocks.",
+          "High-speed streaming strings parser bypassing truncation caps on large binaries.",
+          "Extended flag extraction matching brace-less formats, key-value pairs, and standard CTF tokens."
+        ],
+        commandSyntax: "triage <target_file>",
+        exampleCmd: "triage /home/user/Desktop/mystery.chall",
+        sampleOutput: `=== Triage: /home/user/Desktop/mystery.chall ===\n\n--- file ---\nZip archive, with extra data prepended\n\n--- binwalk ---\n110       0x6E      Zip archive data (name: keychecker)\n16374     0x3FF6    Zip archive data (name: traffic.pcap)\n\n--- entropy ---\nGlobal: 2.300 bits/byte | Block Min: 1.840 | Block Max: 7.850\n\n--- verdict ---\n* Possible embedded archive — try sweep to extract.\n* Localized high entropy (7.85 bits/byte) — detected encrypted sub-block.`
+      },
+      sweep: {
+        title: "sweep.py — Multi-Format Forensics & Carving",
+        tag: "Forensics & Stego",
+        tagColor: "cyan",
+        desc: "Automated type-routed forensics tool for memory dumps, network captures, steganography images, and nested archives.",
+        features: [
+          "Follows top 5 active TCP streams and dumps authorization tokens and credentials from PCAP captures.",
+          "Integrated top-20 password dictionary attack against Steghide payloads.",
+          "Binary-safe subprocess handling preventing Unicode byte continuation exceptions during extraction."
+        ],
+        commandSyntax: "sweep <forensics_file>",
+        exampleCmd: "sweep /home/user/Desktop/mystery.chall",
+        sampleOutput: `=== Forensics sweep: traffic.pcap ===\nDetected kind: pcap\n\n--- HTTP object export ---\nExtracted 2 objects to ~/ctf/forensics/sweep_traffic/http_objects/\n\n--- TCP Stream 0 ---\nGET /vault HTTP/1.1\nAuthorization: Bearer Q1RGezVfdG9vbHNfb25lX2ZsYWdfd2VsbF9kb25lfQ==\nX-Hint: port=9191`
+      },
+      decode: {
+        title: "decode.py — Multi-Layer Crypto Auto-Decoder",
+        tag: "Cryptography",
+        tagColor: "purple",
+        desc: "Recursive cryptographic decoder capable of solving nested encoding layers and statistical multi-byte XOR encryption.",
+        features: [
+          "Known-prefix and frequency-analysis multi-byte XOR cracking for key lengths 2 to 8.",
+          "Automatic support for Base64, Base32, Base85/Ascii85, Hex, Binary, ROT1–25, and URL percent-encoding.",
+          "English letter frequency and unprintable character scoring to eliminate noise."
+        ],
+        commandSyntax: "decode <ciphertext_or_hex> [--depth 2] [--top 10]",
+        exampleCmd: 'decode "UEdTezVfZzAweTVfMV96NDVnM2VfcHU0MWFfcDB6Y3kzZzN9"',
+        sampleOutput: `=== Decoding (depth=2) ===\nInput: UEdTezVfZzAweTVfMV96NDVnM2VfcHU0MWFfcDB6Y3kzZzN9\n\n--- Top 3 candidates ---\n[ 162.0] base64 -> rot13: CTF{5_t00l5_1_m45t3r_ch41n_c0mpl3t3}  <-- POSSIBLE FLAG\n[ 110.0] base64: PGS{5_g00y5_1_z45g3e_pu41a_p0zcy3g3}\n[ 110.0] base64 -> rot1: QHT{5_h00z5_1_a45h3f_qv41b_q0adz3h3}`
+      },
+      reverse: {
+        title: "reverse.py — High-Speed Binary Reversing",
+        tag: "Reverse Engineering",
+        tagColor: "amber",
+        desc: "Fast-path binary analyzer combining instant Radare2 disassembly with deep Headless Ghidra decompilation.",
+        features: [
+          "Sub-second Radare2 analysis bypassing heavy JVM startup times for rapid triage.",
+          "Automatic entrypoint and __libc_start_main fallback resolution for stripped ELF binaries.",
+          "Complete checksec security mitigation auditing (RELRO, Canary, NX, PIE)."
+        ],
+        commandSyntax: "reverse <binary_path> [--ghidra] [--timeout 120]",
+        exampleCmd: "reverse /home/user/ctf/challenge/keychecker",
+        sampleOutput: `=== Reverse quick-look: keychecker ===\n\n--- checksec ---\nPartial RELRO | No canary found | NX enabled | No PIE\n\n--- Fast-path radare2 disassembly ---\n0x004011c8  mov  esi, 0x55\n0x004011cd  call sym.decode_xor\n\n--- verdict ---\n* No stack canary — buffer overflow viable directly.\n* NX enabled — shellcode on stack won't execute; look at ROP.`
+      },
+      webrecon: {
+        title: "webrecon.py — 4x Parallel Web Reconnaissance",
+        tag: "Web Security",
+        tagColor: "rose",
+        desc: "High-concurrency web enumeration combo running port discovery, tech fingerprinting, directory fuzzing, and vulnerability scanning.",
+        features: [
+          "2-second pre-flight TCP socket probe that immediately aborts on dead or blackhole hosts.",
+          "Parallel ThreadPoolExecutor executing Nmap, WhatWeb, Gobuster/FFUF, and Nikto concurrently.",
+          "Turnaround time reduced from >154 seconds down to under 21 seconds."
+        ],
+        commandSyntax: "webrecon <url_or_host> [--no-nikto] [--timeout 20]",
+        exampleCmd: "webrecon http://127.0.0.1:9191 --no-nikto",
+        sampleOutput: `=== Advanced Parallel Web Recon: http://127.0.0.1:9191 ===\n[*] Target is reachable. Launching parallel tasks...\n\n--- nmap service scan ---\n9191/tcp open  http  Python/3.13 BaseHTTP/0.6\n\n--- directory enumeration ---\n/vault (Status: 200) [Size: 104]\n/robots.txt (Status: 200) [Size: 31]\n\nCombined report saved to: ~/ctf/web/webrecon_127.0.0.1_9191.txt`
+      }
+    };
+
+    let activeTool = 'triage';
+
+    function selectTool(key) {
+      activeTool = key;
+      
+      // Update Tab highlight classes
+      ['triage', 'sweep', 'decode', 'reverse', 'webrecon'].forEach(t => {
+        const card = document.getElementById('card-' + t);
+        if (t === key) {
+          card.className = "cursor-pointer p-4 rounded-xl border border-emerald-500 bg-slate-900 transition relative overflow-hidden group shadow-lg shadow-emerald-950/40";
+        } else {
+          card.className = "cursor-pointer p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:border-slate-700 hover:bg-slate-900 transition relative overflow-hidden group";
+        }
+      });
+
+      renderTool();
+    }
+
+    function renderTool() {
+      const tool = TOOL_DATA[activeTool];
+      const container = document.getElementById('tool-content');
+
+      container.innerHTML = `
+        <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-4 gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-mono font-semibold px-2.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">${tool.tag}</span>
+              <h2 class="text-xl font-bold text-white">${tool.title}</h2>
+            </div>
+            <p class="text-slate-400 text-sm mt-1">${tool.desc}</p>
+          </div>
+          <button onclick="copyToClipboard('${tool.exampleCmd}')" class="px-4 py-2 text-xs font-mono bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg transition shadow-md shadow-emerald-950/50 flex items-center gap-2 w-fit">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            Copy Run Command
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="space-y-4">
+            <h4 class="text-xs font-mono uppercase tracking-wider text-slate-400">Core Capabilities</h4>
+            <ul class="space-y-2.5 text-sm text-slate-300">
+              ${tool.features.map(f => `
+                <li class="flex items-start gap-2">
+                  <span class="text-emerald-400 font-bold">✓</span>
+                  <span>${f}</span>
+                </li>
+              `).join('')}
+            </ul>
+
+            <div class="pt-2">
+              <h4 class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">Command Line Syntax</h4>
+              <div class="p-3 bg-slate-950 border border-slate-800 rounded-lg text-xs font-mono text-emerald-300">
+                $ ${tool.commandSyntax}
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-mono uppercase tracking-wider text-slate-400">Live Sample Output</h4>
+              <span class="text-[10px] text-slate-500 font-mono">STDOUT PREVIEW</span>
+            </div>
+            <pre class="p-4 bg-slate-950 border border-slate-800 rounded-xl text-xs font-mono text-slate-300 overflow-x-auto h-60 leading-relaxed">${tool.sampleOutput}</pre>
+          </div>
+        </div>
+      `;
+    }
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied to clipboard: " + text);
+      }).catch(() => {
+        prompt("Copy this command:", text);
+      });
+    }
+
+    // Initialize on load
+    selectTool('triage');
+  </script>
+</body>
+</html>

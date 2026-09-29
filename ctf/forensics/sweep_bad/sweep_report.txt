@@ -1,0 +1,23 @@
+=== Forensics sweep: /tmp/bad.pcap ===
+file: pcap capture file, microsecond ts (little-endian) - version 2.4 (linktype#1668308836, capture length 1702129781)
+Detected kind: pcap
+
+--- PCAP Summary ---
+Total packets analyzed: 2
+
+--- HTTP object export ---
+tshark: The file "/tmp/bad.pcap" contains record data that TShark doesn't support.
+(pcap: network type reserved field not zero (0x03700000))
+
+--- DNS queries ---
+tshark: The file "/tmp/bad.pcap" contains record data that TShark doesn't support.
+(pcap: network type reserved field not zero (0x03700000))
+
+--- Credentials / Auth / POST data ---
+tshark: The file "/tmp/bad.pcap" contains record data that TShark doesn't support.
+(pcap: network type reserved field not zero (0x03700000))
+
+--- TCP Streams (Top 5) ---
+(no active TCP streams found)
+
+--- Flags found ---

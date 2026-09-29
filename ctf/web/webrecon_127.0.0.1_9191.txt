@@ -1,0 +1,14 @@
+=== Web Recon: http://127.0.0.1:9191 ===
+Host: 127.0.0.1 | Port: 9191 | Scheme: http
+
+--- nmap service scan ---
+[skipped: 'nmap' timed out after 10s]
+
+--- whatweb fingerprint ---
+[skipped: 'whatweb' timed out after 10s]
+
+--- directory enumeration ---
+[skipped: 'gobuster' timed out after 10s]
+
+--- Flags found ---
+  none

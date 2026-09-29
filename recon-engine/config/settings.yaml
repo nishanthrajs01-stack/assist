@@ -1,0 +1,53 @@
+# ReconEngine — Global Settings
+
+database:
+  path: "data/recon.db"
+
+tools:
+  subfinder: "subfinder"
+  dnsx: "dnsx"
+  httpx: "httpx"
+  katana: "katana"
+  gau: "gau"
+  nuclei: "nuclei"
+  resolvers: "config/resolvers.txt"
+
+scan:
+  # Concurrency limits per tool
+  subfinder_threads: 100
+  dnsx_threads: 100
+  httpx_threads: 50
+  katana_depth: 3
+  katana_js_crawl: true
+  # Nuclei template categories to auto-run on new assets
+  nuclei_tags:
+    - "exposed-panels"
+    - "misconfigurations"
+    - "default-logins"
+    - "takeovers"
+  # Timeout per phase in seconds
+  phase_timeout: 900
+
+alerts:
+  # Set to true/false to enable platforms
+  discord:
+    enabled: false
+    webhook_url: "YOUR_DISCORD_WEBHOOK_URL"
+    min_severity: "medium"   # low / medium / high / critical
+  slack:
+    enabled: false
+    webhook_url: "YOUR_SLACK_WEBHOOK_URL"
+    min_severity: "high"
+  telegram:
+    enabled: false
+    bot_token: "YOUR_TELEGRAM_BOT_TOKEN"
+    chat_id: "YOUR_TELEGRAM_CHAT_ID"
+    min_severity: "critical"
+
+dashboard:
+  host: "127.0.0.1"
+  port: 8080
+  auth:
+    enabled: false
+    username: "admin"
+    password: "changeme123"

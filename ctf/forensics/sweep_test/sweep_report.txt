@@ -1,0 +1,78 @@
+=== Forensics sweep: /home/user/test.pcap ===
+file: pcap capture file, microsecond ts (little-endian) - version 2.4 (Linux cooked v2, capture length 262144)
+Detected kind: pcap
+
+--- HTTP object export ---
+1   0.000000 34.107.243.93 → 10.0.2.15    TCP 66 443 → 57582 [FIN, ACK] Seq=1 Ack=1 Win=65535 Len=0
+    2   0.002119    10.0.2.15 → 34.107.243.93 TLSv1.2 84 Application Data
+    3   0.002633    10.0.2.15 → 34.107.243.93 TCP 60 57582 → 443 [FIN, ACK] Seq=25 Ack=2 Win=62950 Len=0
+    4   0.002843 34.107.243.93 → 10.0.2.15    TCP 66 443 → 57582 [ACK] Seq=2 Ack=25 Win=65535 Len=0
+    5   0.004773 34.107.243.93 → 10.0.2.15    TCP 66 443 → 57582 [ACK] Seq=2 Ack=26 Win=65535 Len=0
+    6   0.591636    10.0.2.15 → 10.174.76.244 DNS 78 Standard query 0x931d A neverssl.com
+    7   0.591970    10.0.2.15 → 10.174.76.244 DNS 78 Standard query 0xd51b AAAA neverssl.com
+    8   0.630841 10.174.76.244 → 10.0.2.15    DNS 94 Standard query response 0x931d A neverssl.com A 34.223.124.45
+    9   0.630842 10.174.76.244 → 10.0.2.15    DNS 106 Standard query response 0xd51b AAAA neverssl.com AAAA 2600:1f13:37c:1400:ba21:7165:5fc7:736e
+   10   0.631694 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 100 41814 → 80 [SYN] Seq=0 Win=64800 Len=0 MSS=1440 SACK_PERM TSval=1312439831 TSecr=0 WS=1024
+   11   0.832691    10.0.2.15 → 34.223.124.45 TCP 80 46484 → 80 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM TSval=4090108350 TSecr=0 WS=1024
+   12   1.652837 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 100 [TCP Retransmission] 41814 → 80 [SYN] Seq=0 Win=64800 Len=0 MSS=1440 SACK_PERM TSval=1312440852 TSecr=0 WS=1024
+   13   1.844821    10.0.2.15 → 34.223.124.45 TCP 80 [TCP Retransmission] 46484 → 80 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM TSval=4090109362 TSecr=0 WS=1024
+   14   1.919396 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a TCP 84 80 → 41814 [SYN, ACK] Seq=0 Ack=1 Win=65535 Len=0 MSS=1440
+   15   1.919504 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 80 41814 → 80 [ACK] Seq=1 Ack=1 Win=64800 Len=0
+   16   1.920212 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e HTTP 156 GET / HTTP/1.1 
+   17   1.921328 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a TCP 80 80 → 41814 [ACK] Seq=1 Ack=77 Win=65535 Len=0
+   18   2.120288 34.223.124.45 → 10.0.2.15    TCP 66 80 → 46484 [SYN, ACK] Seq=0 Ack=1 Win=65535 Len=0 MSS=1460
+   19   2.120315    10.0.2.15 → 34.223.124.45 TCP 60 46484 → 80 [RST] Seq=1 Win=0 Len=0
+   20   2.224461 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a TCP 1380 HTTP/1.1 200 OK 
+   21   2.224608 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 80 41814 → 80 [ACK] Seq=77 Ack=1301 Win=65535 Len=0
+   22   2.232774 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a HTTP 3041 HTTP/1.1 200 OK  (text/html)
+   23   2.232942 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 80 41814 → 80 [ACK] Seq=77 Ack=4262 Win=65535 Len=0
+   24   2.234331 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 80 41814 → 80 [FIN, ACK] Seq=77 Ack=4262 Win=65535 Len=0
+   25   2.235322 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a TCP 80 80 → 41814 [ACK] Seq=4262 Ack=78 Win=65535 Len=0
+   26   2.317419    10.0.2.15 → 10.174.76.244 DNS 78 Standard query 0xb37a A neverssl.com
+   27   2.318199    10.0.2.15 → 10.174.76.244 DNS 78 Standard query 0xf779 AAAA neverssl.com
+   28   2.357216 10.174.76.244 → 10.0.2.15    DNS 94 Standard query response 0xb37a A neverssl.com A 34.223.124.45
+   29   2.357217 10.174.76.244 → 10.0.2.15    DNS 106 Standard query response 0xf779 AAAA neverssl.com AAAA 2600:1f13:37c:1400:ba21:7165:5fc7:736e
+   30   2.359174 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 100 41826 → 80 [SYN] Seq=0 Win=64800 Len=0 MSS=1440 SACK_PERM TSval=2429617231 TSecr=0 WS=1024
+   31   2.511510 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a TCP 80 80 → 41814 [FIN, ACK] Seq=4262 Ack=78 Win=65535 Len=0
+   32   2.511603 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 80 41814 → 80 [ACK] Seq=78 Ack=4263 Win=6464 Len=0
+   33   2.559928    10.0.2.15 → 34.223.124.45 TCP 80 46486 → 80 [SYN] Seq=0 Win=64240 Len=0 MSS=1460 SACK_PERM TSval=4148412286 TSecr=0 WS=1024
+   34   2.632381 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a TCP 84 80 → 41826 [SYN, ACK] Seq=0 Ack=1 Win=65535 Len=0 MSS=1440
+   35   2.633226 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 80 41826 → 80 [ACK] Seq=1 Ack=1 Win=64800 Len=0
+   36   2.635231 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e HTTP 156 GET / HTTP/1.1 
+   37   2.638120 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a TCP 80 80 → 41826 [ACK] Seq=1 Ack=77 Win=65535 Len=0
+   38   2.925426 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a TCP 2680 HTTP/1.1 200 OK 
+   39   2.926008 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 80 41826 → 80 [ACK] Seq=77 Ack=2601 Win=65535 Len=0
+   40   2.936143 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a HTTP 1741 HTTP/1.1 200 OK  (text/html)
+   41   2.936311 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 80 41826 → 80 [ACK] Seq=77 Ack=4262 Win=65535 Len=0
+   42   2.937358 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 80 41826 → 80 [FIN, ACK] Seq=77 Ack=4262 Win=65535 Len=0
+   43   2.939099 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a TCP 80 80 → 41826 [ACK] Seq=4262 Ack=78 Win=65535 Len=0
+   44   3.214990 2600:1f13:37c:1400:ba21:7165:5fc7:736e → fd17:625c:f037:2:cff9:8b94:1894:7c8a TCP 80 80 → 41826 [FIN, ACK] Seq=4262 Ack=78 Win=65535 Len=0
+   45   3.215028 fd17:625c:f037:2:cff9:8b94:1894:7c8a → 2600:1f13:37c:1400:ba21:7165:5fc7:736e TCP 80 41826 → 80 [ACK] Seq=78 Ack=4263 Win=6464 Len=0
+   46   3.444762    10.0.2.15 → 142.251.223.234 UDP 77 35626 → 443 Len=29
+   47   3.503913 142.251.223.234 → 10.0.2.15    UDP 74 443 → 35626 Len=26
+
+--- DNS queries ---
+neverssl.com
+neverssl.com
+neverssl.com
+neverssl.com
+neverssl.com
+neverssl.com
+neverssl.com
+neverssl.com
+
+--- Possible credentials / POST bodies ---
+
+
+--- TCP stream 0 (follow) ---
+===================================================================
+Follow: tcp,ascii
+Filter: tcp.stream eq 0
+Node 0: 34.107.243.93:443
+Node 1: 10.0.2.15:57582
+	24
+.....-Eg=9e*.......
+(...
+===================================================================
+
+--- Flags found ---

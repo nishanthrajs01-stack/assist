@@ -1,0 +1,40 @@
+=== Forensics sweep: /home/user/ctf/forensics/sweep_mystery/_mystery.chall.extracted/traffic.pcap ===
+file: pcap capture file, microsecond ts (little-endian) - version 2.4 (Ethernet, capture length 65535)
+Detected kind: pcap
+
+--- HTTP object export ---
+1   0.000000   10.10.10.1 → 10.10.10.99  TCP 54 54321 → 8080 [SYN] Seq=0 Win=8192 Len=0
+    2   0.001045  10.10.10.99 → 10.10.10.1   TCP 54 8080 → 54321 [SYN, ACK] Seq=0 Ack=1 Win=8192 Len=0
+    3   0.001379   10.10.10.1 → 10.10.10.99  TCP 54 54321 → 8080 [ACK] Seq=1 Ack=1 Win=8192 Len=0
+    4   0.002103   10.10.10.1 → 10.10.10.99  HTTP 187 GET /vault HTTP/1.1 
+    5   0.003702  10.10.10.99 → 10.10.10.1   TCP 165 HTTP/1.1 200 OK
+
+--- DNS queries ---
+
+
+--- Possible credentials / POST bodies ---
+
+
+--- TCP stream 0 (follow) ---
+===================================================================
+Follow: tcp,ascii
+Filter: tcp.stream eq 0
+Node 0: 10.10.10.1:54321
+Node 1: 10.10.10.99:8080
+133
+GET /vault HTTP/1.1
+Host: 10.10.10.99
+User-Agent: CTF-Agent
+Authorization: Bearer Q1RGezVfdG9vbHNfb25lX2ZsYWdfd2VsbF9kb25lfQ==
+
+
+	111
+HTTP/1.1 200 OK
+Content-Type: text/plain
+X-Hint: port=9191
+
+Access granted. Next: decode the bearer token.
+
+===================================================================
+
+--- Flags found ---

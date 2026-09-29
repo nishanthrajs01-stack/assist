@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block title %}Overview — ReconEngine{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-2xl font-bold text-white">Attack Surface Overview</h1>
+    <p class="text-slate-400 mt-1 text-sm">Live summary of all tracked programs and discovered assets.</p>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+    <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+      <div class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Programs</div>
+      <div class="text-3xl font-bold text-white">{{ total_programs }}</div>
+    </div>
+
+    <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+      <div class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Active Hosts</div>
+      <div class="text-3xl font-bold text-emerald-400">{{ active_domains }}</div>
+      <div class="text-xs text-slate-500 mt-1">of {{ total_domains }} total</div>
+    </div>
+
+    <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+      <div class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Endpoints</div>
+      <div class="text-3xl font-bold text-sky-400">{{ total_endpoints }}</div>
+    </div>
+
+    <div class="bg-slate-800 rounded-xl p-5 border border-slate-700">
+      <div class="text-slate-400 text-xs font-semibold uppercase tracking-wider mb-1">Unread Alerts</div>
+      <div class="text-3xl font-bold {% if unread_diffs > 0 %}text-red-400{% else %}text-slate-400{% endif %}">
+        {{ unread_diffs }}
+      </div>
+      <div class="text-xs text-slate-500 mt-1">of {{ total_diffs }} total</div>
+    </div>
+  </div>
+
+  <!-- Severity Breakdown + Recent Alerts -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+    <!-- Severity Breakdown -->
+    <div class="bg-slate-800 rounded-xl border border-slate-700 p-6">
+      <h2 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4">Alert Severity Breakdown</h2>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>
+            <span class="text-sm text-slate-300">Critical</span>
+          </div>
+          <span class="font-bold text-white">{{ critical_count }}</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+            <span class="text-sm text-slate-300">High</span>
+          </div>
+          <span class="font-bold text-white">{{ high_count }}</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500"></span>
+            <span class="text-sm text-slate-300">Medium</span>
+          </div>
+          <span class="font-bold text-white">{{ medium_count }}</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+            <span class="text-sm text-slate-300">Low</span>
+          </div>
+          <span class="font-bold text-white">{{ low_count }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Diff Events -->
+    <div class="lg:col-span-2 bg-slate-800 rounded-xl border border-slate-700 p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Recent Alerts</h2>
+        <a href="/diffs" class="text-xs text-brand-400 hover:text-brand-300">View all →</a>
+      </div>
+      <div class="space-y-3">
+        {% for diff in recent_diffs %}
+        <div class="flex items-start gap-3 p-3 bg-slate-750 rounded-lg border border-slate-700">
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold
+            {% if diff.severity == 'critical' %}bg-red-600 text-white
+            {% elif diff.severity == 'high' %}bg-orange-500 text-white
+            {% elif diff.severity == 'medium' %}bg-yellow-500 text-black
+            {% else %}bg-green-600 text-white{% endif %}">
+            {{ diff.severity | upper }}
+          </span>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-medium text-slate-200">{{ diff.event_type | replace("_", " ") }}</div>
+            <div class="text-xs text-slate-400 truncate font-mono">{{ diff.asset }}</div>
+          </div>
+          <div class="text-xs text-slate-500 whitespace-nowrap">{{ diff.created_at | format_dt }}</div>
+        </div>
+        {% else %}
+        <p class="text-slate-500 text-sm text-center py-4">No alerts yet. Run a scan to get started.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Programs List -->
+  <div class="bg-slate-800 rounded-xl border border-slate-700 p-6">
+    <h2 class="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-4">Programs</h2>
+    <div class="space-y-2">
+      {% for prog in programs %}
+      <div class="flex items-center justify-between p-3 bg-slate-900 rounded-lg border border-slate-700">
+        <div>
+          <div class="font-medium text-white text-sm">{{ prog.name }}</div>
+          <div class="text-xs text-slate-500">Added {{ prog.created_at | format_dt }}</div>
+        </div>
+        <button
+          hx-post="/api/scan/{{ prog.id }}"
+          hx-swap="none"
+          hx-confirm="Start a scan for {{ prog.name }}?"
+          class="px-3 py-1.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold rounded-lg transition-colors cursor-pointer">
+          ▶ Run Scan
+        </button>
+      </div>
+      {% else %}
+      <p class="text-slate-500 text-sm">No programs configured. Edit <code class="text-brand-400">config/targets.yaml</code>.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}
